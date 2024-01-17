@@ -8,10 +8,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.retrofitcrazycolumn.model.Movie
 import com.example.retrofitcrazycolumn.ui.theme.RetrofitCrazyColumnTheme
 import com.example.retrofitcrazycolumn.view.MovieItem
@@ -33,7 +38,10 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
 
-                    MovieList(movieList = movieViewModel.movieListResponse)
+                    MovieList(
+                        movieList = movieViewModel.movieListResponse,
+                        movieViewModel.getErrorCon()
+                    )
                     movieViewModel.getMovieList()
                 }
             }
@@ -43,10 +51,17 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun MovieList(movieList: List<Movie>) {
-    LazyColumn {
-        itemsIndexed(items = movieList) { index, item ->
-            MovieItem(movie = item)
+fun MovieList(movieList: List<Movie>, error: Boolean) {
+    if (error)
+        Box(Modifier.fillMaxSize()) {
+            Text(text = "Error de conexión",
+                modifier = Modifier.align(Alignment.Center),
+                fontSize = 30.sp)
         }
-    }
+    else
+        LazyColumn {
+            itemsIndexed(items = movieList) { index, item ->
+                MovieItem(movie = item)
+            }
+        }
 }

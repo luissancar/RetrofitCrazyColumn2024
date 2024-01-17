@@ -39,22 +39,7 @@ fun MovieItem(movie: Movie) {
                     .fillMaxSize()
             ) {
 
-                /* Image(
-                     painter = rememberImagePainter(
-                         data = movie.imageUrl,
-                         builder = {
-                             scale(Scale.FILL)
-                            // placeholder(coil.compose.base.R.drawable.notification_action_background)
 
-                             transformations(CircleCropTransformation())
-
-                         }
-                     ),
-                     contentDescription = movie.desc,
-                     modifier = Modifier
-                         .fillMaxHeight()
-                         .weight(0.2f)
-                 )*/
 
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
